@@ -1,6 +1,7 @@
-const { SchemaType, default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const schema = mongoose.Schema;
 
-let menuSchema = new SchemaType({
+let menuSchema = new schema({
   name: { type: String, require: true },
   icon: { type: String, require: true },
   menuUrl: { type: String, require: true },
