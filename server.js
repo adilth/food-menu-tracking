@@ -9,14 +9,17 @@ const indexRouter = require("./routes/index");
 const menuRouter = require("./routes/menu");
 const userRouter = require("./routes/user");
 const connectDB = require("./config/db");
+const mongoose = require("mongoose");
 
 //load config
 require("dotenv").config({ path: "./config/config.env" });
 
+//passport config
+// require("./config/passport")(passport);
 //loading
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+// if (process.env.NODE_ENV === "development") {
+app.use(morgan("dev"));
+// }
 connectDB();
 
 app.set("view engine", "ejs");
@@ -34,6 +37,7 @@ app.use(
     saveUninitialized: false,
     cookie: { secure: true },
     store: MongoStore.create({ mongoUrl: process.env.MONGODB_URL }),
+    // store: new MongoStore({ mongoUrl: mongoose.connection }),
   })
 );
 
