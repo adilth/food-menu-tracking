@@ -17,10 +17,9 @@ module.exports = {
       let id = req.params.id;
       let err = "";
 
-      let menu = schemas.menu;
       let qry = { _id: id };
 
-      let itemResult = await menu.find(qry).then((itemData) => {
+      let itemResult = await Menu.find(qry).then((itemData) => {
         if (itemData == null) {
           err = "Invalid ID";
         }
@@ -40,10 +39,9 @@ module.exports = {
     if (!ssh.loggedIn) {
       res.redirect("/login");
     } else {
-      let menu = schemas.menu;
       let menuId = req.params.id;
       let qry = { _id: menuId };
-      await menu.deleteOne(qry);
+      await Menu.deleteOne(qry);
       res.redirect("/");
     }
   },
@@ -58,7 +56,6 @@ module.exports = {
       let menuName = req.body.menuName;
       let menuIcon = req.body.menuIcon;
       let menuUrl = req.body.menuUrl;
-      let menu = schemas.menu;
 
       let qry = { _id: menuId };
 
@@ -70,7 +67,7 @@ module.exports = {
         },
       };
 
-      await menu.updateOne(qry, saveData);
+      await Menu.updateOne(qry, saveData);
 
       res.redirect("/");
     }
@@ -87,11 +84,10 @@ module.exports = {
       let menuIcon = req.body.menuIcon;
       let menuUrl = req.body.menuUrl;
       //let userId = req.user.id
-      let menu = schemas.menu;
 
       let qry = { name: menuName };
 
-      let searchResults = await menu.findOne(qry).then(async (userData) => {
+      let searchResults = await Menu.findOne(qry).then(async (userData) => {
         if (!userData) {
           // ok to add menu
           let newMenu = new schemas.menu({
